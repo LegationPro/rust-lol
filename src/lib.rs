@@ -11,7 +11,7 @@ async fn html() -> Html<&'static str> {
 
     let actual_str = String::from(&contents).to_string();
     let test: &'static str = Box::leak(Box::new(actual_str));
-    return Html(test)
+    return Html("<h1>hi nigger<h1>")
 
 }
 
