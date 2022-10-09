@@ -10,8 +10,8 @@ async fn html() -> Html<&'static str> {
     f.read_to_string(&mut contents).expect("oh no");
 
     let actual_str = String::from(&contents).to_string();
-    let test = Box::leak(Box::new(actual_str));
-    return Html(&test.as_str())
+    let test: &'static str = Box::leak(Box::new(actual_str));
+    return Html(test)
 
 }
 
