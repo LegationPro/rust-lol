@@ -1,14 +1,18 @@
+use std::fs::File;
+use std::io::Read;
 use axum::response::Html;
 use axum::{routing::get, Router};
 use sync_wrapper::SyncWrapper;
-use std::fs;
-
-const PATH: &'static str = "./index.html";
 
 async fn html() -> Html<&'static str> {
-    let content = fs::read_to_string(PATH).unwrap();
-    let test = Box::leak(Box::new(content));
+    let mut f = File::open("src/index.html").expect("not found");
+    let mut contents = String::new();
+    f.read_to_string(&mut contents).expect("oh no");
+
+    let actual_str = String::from(&contents).to_string();
+    let test = Box::leak(Box::new(actual_str));
     return Html(&test.as_str())
+
 }
 
 async fn hello_world() -> &'static str {
